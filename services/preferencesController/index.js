@@ -4,7 +4,7 @@ const constants = require('../../constants/index')
 const getPreferencedMethods = async (user_id, category_id, critical) => {
     let methods = [constants.method];
 
-    const userPreferences = getUserPreferences(user_id, category_id, critical)
+    const userPreferences = await getUserPreferences(user_id, category_id, critical)
 
     if (userPreferences && userPreferences.length > 0) {
         methods = userPreferences.map(preference => preference.notification_method);
@@ -16,7 +16,7 @@ const getPreferencedMethods = async (user_id, category_id, critical) => {
 const getPreferencedFrequency = async (user_id, category_id, critical) => {
     let frequency = [constants.frequency];
 
-    const userPreferences = getUserPreferences(user_id, category_id, critical)
+    const userPreferences = await getUserPreferences(user_id, category_id, critical)
 
     if (userPreferences && userPreferences.length > 0) {
         frequency = userPreferences.map(preference => preference.frequency);

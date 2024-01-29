@@ -9,9 +9,9 @@ const createNotification = async (user_id, category_id, content, critical) => {
     const notificationPromises = preferences.map(preference => {
         switch(preference.frequency) {
             case "Immediately":
-                return sendNotification(user_id, category_id, content, critical);
+                return sendNotification(user_id, category_id, content, critical, preference);
             case "Daily":
-                return delayedNotificationController.scheduleNotification(user_id, category_id, content, critical);
+                return delayedNotificationController.scheduleNotification(user_id, category_id, content, critical, preference);
             default:
                 console.log(`No action for: ${preference.frequency}`);
                 return Promise.resolve();

@@ -1,5 +1,6 @@
 const plannedNotificationsDB = require('../../db/plannedNotifications')
 const sendNotification = require('../notificationController/send')
+const preferencesController = require('../preferencesController/index')
 const cron = require('node-cron');
 
 //Save notification to send it in the future
@@ -22,11 +23,17 @@ const sendDelayedNotifications = async () => {
         //Send each notification
         for (const notification of notifications) {
             try {
+                const preferences = await preferencesController.getUserPreferences(
+                    notification.user_id, 
+                    notification.category_id, 
+                    notification.critical
+                );
                 await sendNotification(
                     notification.user_id,
                     notification.category_id,
                     notification.content,
-                    notification.critical
+                    notification.critical,
+                    preferences
                 );
                 results.push({ status: 'success', id: notification.id });
             } catch (error) {
