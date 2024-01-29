@@ -36,6 +36,12 @@ const getUserPreferences = async (user_id, category_id, critical) => {
     return userPreferences
 }
 
+const getAllUserPreferences = async (user_id) => {
+    const preferences = await preferencesDB.getAllPreferences(user_id)
+
+    return preferences
+}
+
 const setPreferences = async (user_id, preferences) => {
     const categories = [...new Set(preferences.map(p => p.category_id))];
 
@@ -51,4 +57,4 @@ const setPreferences = async (user_id, preferences) => {
     await preferencesDB.createPreferences(preferencesToCreate)
 }
 
-module.exports = { getPreferencedMethods, getPreferencedFrequency, getUserPreferences, setPreferences }
+module.exports = { getPreferencedMethods, getPreferencedFrequency, getUserPreferences, setPreferences, getAllUserPreferences }

@@ -10,6 +10,15 @@ const getPreferences = async (user_id, category_id) => {
     return(preferences)
 }
 
+const getAllPreferences = async (user_id) => {
+    const { data: preferences, error } = await supabase
+        .from('preferences')
+        .select("*")
+        .eq('user_id', user_id)
+    
+    return(preferences)
+}
+
 const updatePreference = async (user_id, category_id, method) => {
     const { data, error } = await supabase
         .from('preferences')
@@ -34,4 +43,4 @@ const deletePreferences = async (user_id, categories) => {
         .in('category_id', categories)
 }
 
-module.exports = { getPreferences, updatePreference, createPreferences, deletePreferences }
+module.exports = { getPreferences, updatePreference, createPreferences, deletePreferences, getAllPreferences }

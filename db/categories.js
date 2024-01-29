@@ -9,4 +9,13 @@ const getCategoryById = async (category_id) => {
     return(categories[0])
 }
 
-module.exports = { getCategoryById }
+const getAllCategories = async () => {
+    const { data: categories, error } = await supabase
+        .from('categories')
+        .select("*")
+        .neq('id', 1)
+    
+    return(categories)
+}
+
+module.exports = { getCategoryById, getAllCategories }

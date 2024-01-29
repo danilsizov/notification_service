@@ -21,6 +21,10 @@ const createNotification = async (user_id, category_id, content, critical) => {
     
     try {
         await Promise.all(notificationPromises);
+
+        const results = await Promise.all(notificationPromises);
+
+        return results.filter(result => result !== null).join('\n');
     } catch (error) {
         console.error('Error processing notifications:', error);
     }
@@ -36,12 +40,16 @@ const sendNotification = async (user_id, category_id, content, critical) => {
 
     const methods = await preferencesController.getPreferencedMethods(user_id, category_id, critical)
 
-    methods.map(method => {
+    const notifications = methods.map(method => {
         const sendNotification = senderManager.notificationSenders[method];
         if (sendNotification) {
             return sendNotification(user, category, content, critical);
         }
     })
+
+    const results = await Promise.all(notifications);
+
+    return results.filter(result => result !== null).join('\n');
 }
 
 module.exports = { createNotification }
