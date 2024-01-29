@@ -8,6 +8,7 @@ const getNotifications = async () => {
     return planned_notifications
 }
 
+//Saving notification to send it once a day en masse, save request data
 const createNotification = async (user_id, category_id, content, critical) => {
     const { data, error } = await supabase
         .from('planned_notifications')
@@ -22,6 +23,7 @@ const createNotification = async (user_id, category_id, content, critical) => {
         .select()
 }
 
+//Delete all saved notifications after they were sent
 const clearTable = async () => {
     const { error } = await supabase
         .from('planned_notifications')

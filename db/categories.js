@@ -9,6 +9,7 @@ const getCategoryById = async (category_id) => {
     return(categories[0])
 }
 
+//Get all categories except "critical", (id = 1)
 const getAllCategories = async () => {
     const { data: categories, error } = await supabase
         .from('categories')

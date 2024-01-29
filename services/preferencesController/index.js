@@ -33,9 +33,19 @@ const getUserPreferences = async (user_id, category_id, critical) => {
         userPreferences = await preferencesDB.getPreferences(user_id, category_id);
     }
 
+    if(!userPreferences || userPreferences.length === 0){
+        userPreferences = [{
+            user_id: user_id,
+            category_id: category_id,
+            frequency: constants.frequency,
+            notification_method: constants.method
+        }]
+    }
+
     return userPreferences
 }
 
+//Just return raw objects
 const getAllUserPreferences = async (user_id) => {
     const preferences = await preferencesDB.getAllPreferences(user_id)
 
@@ -43,6 +53,7 @@ const getAllUserPreferences = async (user_id) => {
 }
 
 const setPreferences = async (user_id, preferences) => {
+    //Uniqueness of categories array
     const categories = [...new Set(preferences.map(p => p.category_id))];
 
     const preferencesToCreate = preferences.map(preference => ({

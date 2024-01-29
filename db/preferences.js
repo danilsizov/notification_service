@@ -10,6 +10,7 @@ const getPreferences = async (user_id, category_id) => {
     return(preferences)
 }
 
+//Get all preferences by user_id
 const getAllPreferences = async (user_id) => {
     const { data: preferences, error } = await supabase
         .from('preferences')
@@ -28,6 +29,7 @@ const updatePreference = async (user_id, category_id, method) => {
         .select()
 }
 
+//Create multiple rows with notifications
 const createPreferences = async (preferences) => {
     const { data, error } = await supabase
         .from('preferences')

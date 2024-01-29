@@ -2,6 +2,7 @@ const sendNotification = require('./send')
 const preferencesController = require('../preferencesController/index')
 const delayedNotificationController = require('../delayedNotificationController')
 
+//Create notification and identify when it should be sent
 const createNotification = async (user_id, category_id, content, critical) => {
     const preferences = await preferencesController.getUserPreferences(user_id, category_id, critical)
 
@@ -17,6 +18,7 @@ const createNotification = async (user_id, category_id, content, critical) => {
         }
     });
     
+    //Finish all Promises to gather results and send it back to client
     try {
         await Promise.all(notificationPromises);
 

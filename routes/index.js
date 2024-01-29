@@ -12,29 +12,47 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/create-notification', async (req, res, next) => {
-  const critical = strToBool(req.body.critical)
-  const result = await notificationController.createNotification(
-    req.body.user_id, 
-    req.body.category_id, 
-    req.body.content, 
-    critical)
-  res.send(result);
+  try{
+    //Convert string to boolean
+    const critical = strToBool(req.body.critical)
+    const result = await notificationController.createNotification(
+      req.body.user_id, 
+      req.body.category_id, 
+      req.body.content, 
+      critical)
+    res.send(result);
+  } catch (error){
+    res.send('Error, unable to create notification');
+  }
 });
 
 router.get('/get-preferences', async (req, res, next) => {
-  const preferences = await preferencesController.getAllUserPreferences(req.query.user_id)
+  try{
+    const preferences = await preferencesController.getAllUserPreferences(req.query.user_id)
 
-  res.send(preferences);
+    res.send(preferences);
+  } catch (error){
+    res.send('Error, unable to get preferences');
+  }
 });
 
 router.post('/set-preferences', async (req, res, next) => {
-  await preferencesController.setPreferences(req.body.user_id, req.body.preferences)
-  res.send('preferences set');
+  try{
+    await preferencesController.setPreferences(req.body.user_id, req.body.preferences)
+    res.send('preferences set');
+  } catch (error){
+    res.send('Error, unable to set preferences');
+  }
 });
 
+//Get all categories except "Critical" (id = 1)
 router.get('/get-categories', async (req, res, next) => {
-  const categories = await categoriesController()
-  res.send(categories);
+  try{
+    const categories = await categoriesController()
+    res.send(categories);
+  } catch (error){
+    res.send('Error, unable to get categories');
+  }
 });
 
 module.exports = router;

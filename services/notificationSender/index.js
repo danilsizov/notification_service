@@ -1,3 +1,5 @@
+
+//ToDo: integrate with some API to send notifications
 const sendByEmail = (user, category, content) => {
     console.log('Email sent to ' + user.email)
     console.log('Category: ' + category.name)
@@ -19,6 +21,7 @@ const sendByApp = (user, category, content) => {
     return('App notification sent to ' + user.id + '\n' + 'Category: ' + category.name + '\n' + 'Content: ' + content)
 }
 
+//Mapping methods of notifications delivery
 const notificationSenders = {
     'Email': sendByEmail,
     'SMS': sendByPhone,
