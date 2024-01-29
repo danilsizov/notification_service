@@ -24,7 +24,7 @@ router.get('/get-preferences', function(req, res, next) {
   res.send('preferences');
 });
 
-router.post('/set-preferences', function(req, res, next) {
+router.post('/set-preferences', async (req, res, next) => {
   await preferencesController.setPreferences(req.body.user_id, req.body.preferences)
   res.send('preferences set');
 });
