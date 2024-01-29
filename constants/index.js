@@ -1,6 +1,6 @@
 //Default preference
 
 const method = 'Email'
-const frequency = 'Daily'
+const frequency = 'Immediately'
 
 module.exports = { method, frequency }
